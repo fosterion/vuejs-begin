@@ -4,14 +4,115 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <div id="counter">
-        Счётчик: {{ counter }}
+    <div id="wrapper" v-bind:title="message + ', bruh'">
+        <div>
+            <h1>{{ message }}</h1>
+            <p>{{ text }}</p>
+        </div>
+        <div :title="message + ' ' + text">
+            <h3>Some text</h3>
+        </div>
+        <div>
+            <h1 v-if="status">Свойство истина</h1>
+            <h1 v-else>Свойство ложь</h1>
+        </div>
+        <div>
+            <h1 v-if="num === 1">Единица</h1>
+            <h1 v-else-if="num === 2">Двойка</h1>
+            <h1 v-else>Число - {{ num }}</h1>
+        </div>
+        <div>
+            <template v-if="status === true">
+                <h1>Header 1</h1>
+                <p>Description 1</p>
+            </template>
+            <template v-else>
+                <h1>Header 2</h1>
+                <p>Description 2</p>
+            </template>
+        </div>
+        <div>
+            <h1 v-show="status">Now you see me</h1>
+        </div>
+        <div class="class-default list" :class="{ active: isActive, 'div-default': isDivDefault }">
+            <h1>Tell me, is red bg color active?</h1>
+        </div>
+        <div :class="[ isActive ? 'active btn' : 'disabled', 'default' ]">
+            <p>My homie</p>
+        </div>
+        <div :style="{ color: 'green', height: height + 'px' }">
+            <h1>Whaaat?!</h1>
+        </div>
     </div>
-    
+    <hr>
+    <div id="datafunc">
+        <div>
+            <ul>
+                <li v-for="item in list">
+                    {{ item }}
+                </li>
+                <li v-for="(item, index) in list">
+                    index: {{ index }}: {{ item }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li v-for="user in users">
+                    {{ user.id }}: {{ user.name }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h1 v-on:click="nameFunction1">
+                CLICK ME!
+            </h1>
+            <h1 @click="nameFunction2">
+                CLICK ME TOO!
+            </h1>
+        </div>
+    </div>
+    <hr>
+    <div id="some">
+        <button @click="increaseCounter">Counter: {{ counter }}</button>
+    </div>
+    <hr>
+    <div id="api">
+        <button type="button" @click="getHashtags">Hashtags</button>
+        <ul>
+            <li v-for="hashtag in hashtags">
+                {{ hashtag }}
+            </li>
+        </ul>
+        <button type="button" @click="getCities">Cities</button>
+        <ul>
+            <li v-for="city in cities">
+                {{ city }}
+            </li>
+        </ul>
+        <h3>{{ textSearch }} (длина: {{ textSearch.length }})</h3>
+        <input type="text" size="50" v-model="textSearch">
+    </div>
     <script src="scripts/main.js"></script>
 </body>
 </html>
